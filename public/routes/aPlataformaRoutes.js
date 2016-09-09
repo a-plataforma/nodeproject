@@ -4,13 +4,13 @@
 //
 
 app.config(['$routeProvider', function($routeProvider){
-	$routeProvider.when('/service/', {
+	$routeProvider.when('/', {
 		templateUrl: 'views/Index.html'
 	})
-	.when('/service/login', {
+	.when('/login', {
 		templateUrl: 'views/Login.html'
 	})
-	.when('/service/about', {
+	.when('/about', {
 		templateUrl: 'views/About.html'
 	})
 	.otherwise({redirectTo: '/'});
