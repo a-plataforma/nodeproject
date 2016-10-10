@@ -19,11 +19,8 @@ app.use(bodyParser.json());
 
 // Below are the CriptoTransfer System service HTTP Routes
 app.get('/login', function (req, res){
-
-    console.log("Activating /login route on A Plataforma service.");
-
+    console.log(" Activating /login route on A Plataforma service.");
 });
-
 
 //Create backend server instance using and available TCP port.
 app.listen(3000);

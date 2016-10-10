@@ -1,0 +1,27 @@
+{
+  "name": "aplataforma",
+  "version": "0.0.1",
+  "description": "A Plataforma repository",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "~1.14.2",
+    "express": "~4.13.3",
+    "ws": "~1.1.1",
+    "websocket": "~1.0.23",
+    "mongojs": "~2.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a-plataforma/nodeproject.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/a-plataforma/nodeproject/issues"
+  }
+}
