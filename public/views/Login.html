@@ -1,8 +1,49 @@
+<div class="container" style="width: 400px; margin: 0 auto">
+	<div class="row">
+		<h3 style="margin-bottom: 30px; text-transform: uppercase">Entrar no Sistema</h3>
+	</div>
+	<div class="row">
+		<form id="local-sign-in" action="/login" method="post">
+			<div class="form-group">
+				<label for="username">Usuário:</label>
+				<input type="text" name="username" id="username" class="form-control"/>
+			</div>
+			<div class="form-group">
+				<label for="password">Senha:</label>
+				<input type="password" name="password" id="password" class="form-control"/>
+			</div>
+			<div class="checkbox">
+				<ul class="list-inline">
+					<li>
+						<label>
+							<input type="checkbox"> Me lembrar
+						</label>
+					</li>
 
-<table width=60% align="Center">
-	<tr>
-		<td align="Center">
-			Login
-		</td>
-	</tr>
-</table>	
+					<li class="pull-right">
+						<a href="/forget-password">Esqueci a senha</a>
+					</li>
+				</ul>
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-success btn-lg btn-block" value="Entrar"/>
+			</div>
+		</form>
+	</div>
+	<div class="row" style="margin: 10px 0 10px 0">
+		<p style="text-align: center">OU</p>
+	</div>
+	<div class="row">
+		<div class="col-md-6" style="padding: 0 10px 10px 0">
+			<a href="/auth/facebook" class="btn btn-primary btn-lg btn-block" role="button"><span
+					class="fa fa-facebook"></span> Facebook</a>
+		</div>
+		<div class="col-md-6" style="padding: 0">
+			<a href="/auth/google" class="btn btn-danger btn-lg btn-block" role="button"><span
+					class="fa fa-google-plus"></span> Google+</a>
+		</div>
+	</div>
+	<div class="row">
+		<p style="text-align: center">Não tem conta? <a href="/register">Crie uma agora!</a></p>
+	</div>
+</div>

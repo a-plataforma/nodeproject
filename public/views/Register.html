@@ -1,0 +1,70 @@
+<div class="container" style="width: 600px; margin: 0 auto">
+    <div class="row">
+        <h3 style="margin-bottom: 30px; text-transform: uppercase">Cadastrar no Sistema</h3>
+    </div>
+    <div class="row">
+        <form id="local-sign-in" action="/login" method="post">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" name="name" id="name" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="username">Usuário:</label>
+                <input type="text" name="username" id="username" class="form-control"/>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" name="password" id="password" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="password-confirmation">Confirmação da Senha:</label>
+                        <input type="password" name="password-confirmation" id="password-confirmation"
+                               class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="checkbox">
+                <ul class="list-inline">
+                    <li>
+                        <label>
+                            <input type="checkbox" checked="checked"> Aceito os termos e condições
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="checkbox">
+                <ul class="list-inline">
+                    <li>
+                        <label>
+                            <input type="checkbox" checked="checked"> Aceito receber as novidades
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success btn-lg btn-block" value="Cadastrar"/>
+            </div>
+        </form>
+    </div>
+    <div class="row" style="margin: 10px 0 10px 0">
+        <p style="text-align: center">OU</p>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="padding: 0 10px 10px 0">
+            <a href="/auth/facebook" class="btn btn-primary btn-lg btn-block" role="button"><span
+                    class="fa fa-facebook"></span> Facebook</a>
+        </div>
+        <div class="col-md-6" style="padding: 0">
+            <a href="/auth/google" class="btn btn-danger btn-lg btn-block" role="button"><span
+                    class="fa fa-google-plus"></span> Google+</a>
+        </div>
+    </div>
+</div>
