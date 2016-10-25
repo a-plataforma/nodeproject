@@ -3,7 +3,7 @@
         <h3 style="margin-bottom: 30px; text-transform: uppercase">Cadastrar no Sistema</h3>
     </div>
     <div class="row">
-        <form id="local-sign-in" action="/login" method="post">
+        <form id="local-register" action="/register" method="post">
             <div class="form-group">
                 <label for="name">Nome:</label>
                 <input type="text" name="name" id="name" class="form-control"/>
@@ -44,7 +44,7 @@
                 <ul class="list-inline">
                     <li>
                         <label>
-                            <input type="checkbox" checked="checked"> Aceito receber as novidades
+                            <input type="checkbox" checked="checked" id="accept_news"> Aceito receber as novidades
                         </label>
                     </li>
                 </ul>
@@ -59,11 +59,11 @@
     </div>
     <div class="row">
         <div class="col-md-6" style="padding: 0 10px 10px 0">
-            <a href="/auth/facebook" class="btn btn-primary btn-lg btn-block" role="button"><span
+            <a href="/auth-facebook" class="btn btn-primary btn-lg btn-block" role="button"><span
                     class="fa fa-facebook"></span> Facebook</a>
         </div>
         <div class="col-md-6" style="padding: 0">
-            <a href="/auth/google" class="btn btn-danger btn-lg btn-block" role="button"><span
+            <a href="/auth-google" class="btn btn-danger btn-lg btn-block" role="button"><span
                     class="fa fa-google-plus"></span> Google+</a>
         </div>
     </div>

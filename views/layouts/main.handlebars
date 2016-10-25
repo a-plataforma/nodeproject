@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Projeto A Plataforma">
+    <meta name="author" content="Dax Faulstich Diniz Reis">
+    <meta name="keywords" content="Empresa Livre">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Plataforma - Site do Projeto</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">A Plataforma</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+                {{#if user}}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text">
+                                <strong>Olá </strong>
+                                {{user.username}}
+                            </p>
+                        </li>
+                        <li>
+                            <a href="/logout">Sair</a>
+                        </li>
+                    </ul>
+                {{else}}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/login">Entrar</a>
+                        </li>
+                        <li>
+                            <a href="/register">Registrar</a>
+                        </li>
+                    </ul>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        {{#if error}}
+            <p class="alert alert-warning">{{error}}</p>
+        {{/if}}
+        {{#if success}}
+            <p class="alert alert-success">{{success}}</p>
+        {{/if}}
+        {{#if message}}
+            <p class="alert alert-info">{{message}}</p>
+        {{/if}}
+        {{{body}}}
+        <hr/>
+        <footer>
+            Rodapé
+        </footer>
+    </div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
