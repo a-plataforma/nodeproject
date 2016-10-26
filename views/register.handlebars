@@ -6,15 +6,15 @@
         <form id="local-register" action="/register" method="post">
             <div class="form-group">
                 <label for="name">Nome:</label>
-                <input type="text" name="name" id="name" class="form-control"/>
+                <input type="text" name="name" id="name" class="form-control" value="{{name}}"/>
             </div>
             <div class="form-group">
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" class="form-control"/>
+                <input type="email" name="email" id="email" class="form-control" value="{{email}}"/>
             </div>
             <div class="form-group">
                 <label for="username">Usuário:</label>
-                <input type="text" name="username" id="username" class="form-control"/>
+                <input type="text" name="username" id="username" class="form-control" value="{{username}}"/>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -35,7 +35,8 @@
                 <ul class="list-inline">
                     <li>
                         <label>
-                            <input type="checkbox" checked="checked"> Aceito os termos e condições
+                            <input type="checkbox" name="accept_terms" id="accept_terms">
+                            Aceito os termos e condições
                         </label>
                     </li>
                 </ul>
@@ -44,7 +45,8 @@
                 <ul class="list-inline">
                     <li>
                         <label>
-                            <input type="checkbox" checked="checked" id="accept_news"> Aceito receber as novidades
+                            <input type="checkbox" name="accept_news" id="accept_news" checked="{{accept_news}}">
+                            Aceito receber as novidades
                         </label>
                     </li>
                 </ul>

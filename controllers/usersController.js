@@ -37,9 +37,45 @@ usersController.resetPassword = function (request, response) {
 usersController.registerGet = function (request, response) {
     response.render('register', {
         user: request.user,
+        name: request.flash('name'),
+        email: request.flash('email'),
+        username: request.flash('username'),
+        accept_news: request.flash('accept_news'),
         message: request.flash('message'),
         error: request.flash('error')
     });
+};
+
+// POST Register
+usersController.registerPost = function (request, response) {
+    request.check('name', 'Precisa informar o nome.').notEmpty();
+    request.check('email', 'Precisa informar um e-mail válido.').isEmail();
+    request.check('username', 'Precisa informar o usuário.').notEmpty();
+    request.check('password', 'Precisa informar a senha.').notEmpty();
+    if (request.body.password) {
+        request.check('password-confirmation', 'A senha deve ser igual a confirmação.').equals(request.body.password);
+    }
+
+    var errors = request.validationErrors();
+    if (errors) {
+        response.render('register', {
+            user: request.user,
+            name: request.body.name,
+            email: request.body.email,
+            username: request.body.username,
+            accept_news: request.body.accept_news,
+            error: errors
+        });
+    }
+    else {
+        passport.authenticate('register',
+            {
+                successRedirect: '/profile',
+                failureRedirect: '/register',
+                failureFlash: true
+            }
+        )(request, response);
+    }
 };
 
 // GET Login
@@ -77,7 +113,7 @@ usersController.loginPost = function (request, response) {
 };
 
 // POST Logout
-usersController.logout = function (request, response) {
+usersController.logoutGet = function (request, response) {
     request.logout();
     response.redirect('/');
 };

@@ -34,13 +34,9 @@ module.exports = function (passport) {
     router.post('/login', ctrlUser.loginPost);
 
     router.get('/register', ctrlUser.registerGet);
-    router.post('/register', passport.authenticate('register', {
-        successRedirect: '/profile',
-        failureRedirect: '/register',
-        failureFlash: true
-    }));
+    router.post('/register', ctrlUser.registerPost);
 
-    router.get('/logout', ctrlUser.logout);
+    router.get('/logout', ctrlUser.logoutGet);
 
     return router;
 }

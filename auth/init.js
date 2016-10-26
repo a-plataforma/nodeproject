@@ -29,14 +29,18 @@ module.exports = function (passport) {
                 function (user) {
                     // User not found in database
                     if (!user) {
-                        return done(null, false, request.flash('username', username),
-                            request.flash('error', [{msg: 'Usuário ou senha inválidos.'}]));
+                        return done(null, false,
+                            request.flash('username', username),
+                            request.flash('error', [{msg: 'Usuário ou senha inválidos.'}])
+                        );
                     }
 
                     // Password is invalid
                     if (!user.validPassword(password)) {
-                        return done(null, false, request.flash('username', username),
-                            request.flash('error', [{msg: 'Usuário ou senha inválidos.'}]));
+                        return done(null, false,
+                            request.flash('username', username),
+                            request.flash('error', [{msg: 'Usuário ou senha inválidos.'}])
+                        );
                     }
 
                     // If credentials are correct, return the user object
@@ -52,19 +56,29 @@ module.exports = function (passport) {
 
     passport.use('register', new LocalStrategy({passReqToCallback: true},
         function (request, username, password, done) {
-            User.findOne({'username': username}).then(
+            User.findOne(
+                {
+                    $or: [{'name': request.body.name}, {'email': request.body.email}, {'username': username}]
+                }
+            ).then(
                 function (user) {
                     // User already exists
                     if (user) {
-                        return done(null, false, request.flash('message', 'Usuário já existe'));
+                        return done(null, false,
+                            request.flash('name', request.body.name),
+                            request.flash('email', request.body.email),
+                            request.flash('username', username),
+                            request.flash('accept_news', request.body.accept_news),
+                            request.flash('error', [{msg: 'Usuário já existe.'}])
+                        );
                     } else { // Create user
                         var newUser = new User();
 
                         newUser.username = username;
                         newUser.setPassword(password);
 
-                        newUser.email = request.body.email;
                         newUser.name = request.body.name;
+                        newUser.email = request.body.email;
                         newUser.accept_news = request.body.accept_news;
 
                         newUser.save().then(
