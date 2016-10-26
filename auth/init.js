@@ -29,12 +29,14 @@ module.exports = function (passport) {
                 function (user) {
                     // User not found in database
                     if (!user) {
-                        return done(null, false, request.flash('message', 'Usuário ou senha inválidos.'));
+                        return done(null, false, request.flash('username', username),
+                            request.flash('error', [{msg: 'Usuário ou senha inválidos.'}]));
                     }
 
                     // Password is invalid
                     if (!user.validPassword(password)) {
-                        return done(null, false, request.flash('message', 'Usuário ou senha inválidos.'));
+                        return done(null, false, request.flash('username', username),
+                            request.flash('error', [{msg: 'Usuário ou senha inválidos.'}]));
                     }
 
                     // If credentials are correct, return the user object

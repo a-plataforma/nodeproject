@@ -13,13 +13,14 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     path = require('path'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    expressValidator = require('express-validator');
 
 // Setup
 require('./db.js');
 require('./auth/init.js');
 var config = require('./config.js'),
-    routes = require('./routes/index.js')(passport);
+    router = require('./routes/index.js')(passport);
 
 // Express framework configurations
 var app = express();
@@ -37,6 +38,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Configure flash middleware to store messages in session and displaying in templates
@@ -52,7 +54,7 @@ var initPassport = require('./auth/init.js');
 initPassport(passport);
 
 // Add server routes
-app.use('/', routes);
+app.use(router);
 
 // Catch 404 and forward to error handler
 app.use(function (request, response, next) {

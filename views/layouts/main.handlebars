@@ -60,13 +60,25 @@
     </div>
     <div class="container body-content">
         {{#if error}}
-            <p class="alert alert-warning">{{error}}</p>
+            <ul class="alert alert-warning">
+                {{#each error}}
+                    <li>{{this.msg}}</li>
+                {{/each}}
+            </ul>
         {{/if}}
         {{#if success}}
-            <p class="alert alert-success">{{success}}</p>
+            <ul class="alert alert-success">
+                {{#each success}}
+                    <li>{{this.msg}}</li>
+                {{/each}}
+            </ul>
         {{/if}}
         {{#if message}}
-            <p class="alert alert-info">{{message}}</p>
+            <ul class="alert alert-info">
+                {{#each message}}
+                    <li>{{this.msg}}</li>
+                {{/each}}
+            </ul>
         {{/if}}
         {{{body}}}
         <hr/>
