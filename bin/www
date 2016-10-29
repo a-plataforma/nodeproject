@@ -4,6 +4,7 @@
 //
 
 // Dependencies
+var format = require('string-format');
 var debug = require('debug')('a-plataforma');
 var http = require('http');
 
@@ -64,7 +65,8 @@ function onError(error) {
 
 // Event listener for HTTP server "listening" event.
 function onListening() {
+    var env = app.get('env');
     var addr = server.address();
     var bind = (typeof addr === 'string') ? 'no pipe ' + addr : 'na porta ' + addr.port;
-    console.log(pjson.name + ' (' + pjson.version + ') escutando ' + bind + '...');
+    console.log(format('{0} v{1} : escutando {2} (ambiente {3})...', pjson.name, pjson.version, bind, env));
 }

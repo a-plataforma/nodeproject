@@ -14,7 +14,7 @@ mongoose.connect(config.databaseURI);
 // Connection events
 // -----------------
 mongoose.connection.on('connected', function () {
-    console.log('[Mongoose] Contectado a "' + config.databaseURI + '"');
+    console.log('[Mongoose] Conectado a "' + config.databaseURI + '"');
 });
 
 mongoose.connection.on('error', function (err) {
