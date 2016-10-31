@@ -71,7 +71,7 @@ usersController.registerPost = function (request, response) {
         passport.authenticate('register',
             {
                 successRedirect: '/profile',
-                failureRedirect: '/register',
+                failureRedirect: '/auth/register',
                 failureFlash: true
             }
         )(request, response);
@@ -105,11 +105,24 @@ usersController.loginPost = function (request, response) {
         passport.authenticate('login',
             {
                 successRedirect: '/profile',
-                failureRedirect: '/login',
+                failureRedirect: '/auth/login',
                 failureFlash: true
             }
         )(request, response);
     }
+};
+
+// GET Facebook Authentication
+usersController.authFacebookGet = function (request, response) {
+    passport.authenticate('facebook', {scope: 'email'})(request, response);
+};
+
+// GET Facebook Authentication Callback
+usersController.authFacebookCallbackGet = function (request, response) {
+    passport.authenticate('facebook', {
+        successRedirect : '/profile',
+        failureRedirect : '/auth/login'
+    })(request, response);
 };
 
 // POST Logout

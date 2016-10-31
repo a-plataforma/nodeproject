@@ -3,7 +3,7 @@
 		<h3 style="margin-bottom: 30px; text-transform: uppercase">Entrar no Sistema</h3>
 	</div>
 	<div class="row">
-		<form id="local-sign-in" action="/login" method="post">
+		<form id="local-sign-in" action="/auth/login" method="post">
 			<div class="form-group">
 				<label for="username">Usuário:</label>
 				<input type="text" name="username" id="username" class="form-control" value="{{username}}"/>
@@ -21,7 +21,7 @@
 					</li>
 
 					<li class="pull-right">
-						<a href="/reset-password">Esqueci a senha</a>
+						<a href="/auth/reset-password">Esqueci a senha</a>
 					</li>
 				</ul>
 			</div>
@@ -44,6 +44,6 @@
 		</div>
 	</div>
 	<div class="row">
-		<p style="text-align: center">Não tem conta? <a href="/register">Crie uma agora!</a></p>
+		<p style="text-align: center">Não tem conta? <a href="/auth/register">Crie uma agora!</a></p>
 	</div>
 </div>

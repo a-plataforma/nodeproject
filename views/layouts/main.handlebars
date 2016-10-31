@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div class="container">
@@ -38,20 +38,20 @@
                         <li>
                             <p class="navbar-text">
                                 <strong>Olá </strong>
-                                {{user.username}}
+                                {{user.name}}
                             </p>
                         </li>
                         <li>
-                            <a href="/logout">Sair</a>
+                            <a href="/auth/logout">Sair</a>
                         </li>
                     </ul>
                 {{else}}
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="/login">Entrar</a>
+                            <a href="/auth/login">Entrar</a>
                         </li>
                         <li>
-                            <a href="/register">Registrar</a>
+                            <a href="/auth/register">Registrar</a>
                         </li>
                     </ul>
                 {{/if}}

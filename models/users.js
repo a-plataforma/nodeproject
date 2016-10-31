@@ -10,23 +10,17 @@ var crypto = require('crypto');
 // Schema
 var userSchema = new mongoose.Schema(
     {
-        name: {
-            type: String,
-            required: true
+        name: String,
+        email: String,
+        local: {
+            username: String,
+            hash: String,
+            salt: String
         },
-        email: {
-            type: String,
-            unique: true,
-            required: true
-        },
-        username: {
-            type: String,
-            unique: true,
-            required: true
-        },
-        accept_news: Boolean,
-        hash: String,
-        salt: String
+        facebook: {
+            id: String,
+            token: String
+        }
     }
 );
 
@@ -36,14 +30,14 @@ var userSchema = new mongoose.Schema(
 
 // Set password
 userSchema.methods.setPassword = function (password) {
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+    this.local.salt = crypto.randomBytes(16).toString('hex');
+    this.local.hash = crypto.pbkdf2Sync(password, this.local.salt, 1000, 64).toString('hex');
 };
 
 // Validate password
 userSchema.methods.validPassword = function (password) {
-    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-    return (this.hash === hash);
+    var hash = crypto.pbkdf2Sync(password, this.local.salt, 1000, 64).toString('hex');
+    return (this.local.hash === hash);
 };
 
 mongoose.model('User', userSchema);

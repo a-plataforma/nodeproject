@@ -6,8 +6,10 @@
 // Dependencies
 var passport = require('passport');
 var mongoose = require('mongoose');
+var config = require('../config.js');
 
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var User = mongoose.model('User');
 
 module.exports = function (passport) {
@@ -23,9 +25,12 @@ module.exports = function (passport) {
             });
         });
 
+    // =========================================================================
+    // LOCAL ===================================================================
+    // =========================================================================
     passport.use('login', new LocalStrategy({passReqToCallback: true},
         function (request, username, password, done) {
-            User.findOne({username: username}).then(
+            User.findOne({'local.username': username}).then(
                 function (user) {
                     // User not found in database
                     if (!user) {
@@ -58,7 +63,7 @@ module.exports = function (passport) {
         function (request, username, password, done) {
             User.findOne(
                 {
-                    $or: [{'name': request.body.name}, {'email': request.body.email}, {'username': username}]
+                    $or: [{'name': request.body.name}, {'email': request.body.email}, {'local.username': username}]
                 }
             ).then(
                 function (user) {
@@ -68,18 +73,16 @@ module.exports = function (passport) {
                             request.flash('name', request.body.name),
                             request.flash('email', request.body.email),
                             request.flash('username', username),
-                            request.flash('accept_news', request.body.accept_news),
                             request.flash('error', [{msg: 'Usuário já existe.'}])
                         );
                     } else { // Create user
                         var newUser = new User();
 
-                        newUser.username = username;
-                        newUser.setPassword(password);
-
                         newUser.name = request.body.name;
                         newUser.email = request.body.email;
-                        newUser.accept_news = request.body.accept_news;
+
+                        newUser.local.username = username;
+                        newUser.setPassword(password);
 
                         newUser.save().then(
                             function () {
@@ -95,6 +98,54 @@ module.exports = function (passport) {
                 function (err) {
                     console.log('erro: ' + err);
                     return done(err);
+                }
+            );
+        })
+    );
+
+    // =========================================================================
+    // FACEBOOK ================================================================
+    // =========================================================================
+    passport.use('facebook', new FacebookStrategy(
+        {
+            clientID: config.facebookAuth.clientID,
+            clientSecret: config.facebookAuth.clientSecret,
+            callbackURL: config.facebookAuth.callbackURL,
+            profileFields: ["id", "email", "first_name", "last_name"],
+        },
+        function (token, refreshToken, profile, done) {
+            process.nextTick(
+                function () {
+                    User.findOne({'facebook.id': profile.id}).then(
+                        function (user) {
+                            // User found
+                            if (user) {
+                                return done(null, user);
+                            } else { // Create user
+                                var newUser = new User();
+
+                                newUser.name = profile.name.givenName + ' ' + profile.name.familyName;
+                                newUser.email = profile.emails[0].value;
+
+                                newUser.facebook.id = profile.id;
+                                newUser.facebook.token = token;
+
+                                newUser.save().then(
+                                    function () {
+                                        return done(null, newUser);
+                                    },
+                                    function (err) {
+                                        console.log('erro: ' + err);
+                                        return done(err);
+                                    }
+                                );
+                            }
+                        },
+                        function (err) {
+                            console.log('erro: ' + err);
+                            return done(err);
+                        }
+                    );
                 }
             );
         })

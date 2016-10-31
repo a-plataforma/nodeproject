@@ -15,7 +15,7 @@ var ctrlUser = require('../controllers/usersController.js');
 var isAuthenticated = function (req, res, next) {
     if (req.isAuthenticated())
         return next();
-    res.redirect('/login');
+    res.redirect('/auth/login');
 }
 
 module.exports = function (passport) {
@@ -26,17 +26,20 @@ module.exports = function (passport) {
     router.get('/profile', isAuthenticated, ctrlUser.profileGet);
 
     // forget password
-    router.get('/reset-password', ctrlUser.resetPasswordGet);
-    router.post('/reset-password', ctrlUser.resetPassword);
+    router.get('/auth/reset-password', ctrlUser.resetPasswordGet);
+    router.post('/auth/reset-password', ctrlUser.resetPassword);
 
     // authentication
-    router.get('/login', ctrlUser.loginGet);
-    router.post('/login', ctrlUser.loginPost);
+    router.get('/auth/login', ctrlUser.loginGet);
+    router.post('/auth/login', ctrlUser.loginPost);
 
-    router.get('/register', ctrlUser.registerGet);
-    router.post('/register', ctrlUser.registerPost);
+    router.get('/auth/register', ctrlUser.registerGet);
+    router.post('/auth/register', ctrlUser.registerPost);
 
-    router.get('/logout', ctrlUser.logoutGet);
+    router.get('/auth/facebook', ctrlUser.authFacebookGet);
+    router.get('/auth/facebook/callback', ctrlUser.authFacebookCallbackGet);
+
+    router.get('/auth/logout', ctrlUser.logoutGet);
 
     return router;
 }
