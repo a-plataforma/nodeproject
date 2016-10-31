@@ -125,6 +125,19 @@ usersController.authFacebookCallbackGet = function (request, response) {
     })(request, response);
 };
 
+// GET Google Authentication
+usersController.authGoogleGet = function (request, response) {
+    passport.authenticate('google', {scope: ['profile', 'email']})(request, response);
+};
+
+// GET Google Authentication Callback
+usersController.authGoogleCallbackGet = function (request, response) {
+    passport.authenticate('google', {
+        successRedirect : '/profile',
+        failureRedirect : '/auth/login'
+    })(request, response);
+};
+
 // POST Logout
 usersController.logoutGet = function (request, response) {
     request.logout();

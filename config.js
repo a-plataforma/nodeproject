@@ -12,9 +12,15 @@ config.secretKey = 'a-plataforma-2016-uxhumano'; // TODO: onde colocar essa chav
 config.port = normalizePort(process.env.PORT || '3000');
 
 config.facebookAuth = {
-    clientID      : '1179971672051131',
-    clientSecret  : 'c9cfb9f61b82288d97ebd28c7ca38df0',
-    callbackURL   : format('http://localhost:{0}/auth/facebook/callback', config.port)
+    clientID: '1179971672051131',
+    clientSecret: 'c9cfb9f61b82288d97ebd28c7ca38df0',
+    callbackURL: format('http://localhost:{0}/auth/facebook/callback', config.port)
+};
+
+config.googleAuth = {
+    clientID: '1094902988024-n2qcs89ngetiifdc6v6ptsdui3tsnn1k.apps.googleusercontent.com',
+    clientSecret: 'zycYebonZ6Xmct9m5IbRHv6F',
+    callbackURL: format('http://localhost:{0}/auth/google/callback', config.port)
 };
 
 // Normalize a port into a number, string, or false.

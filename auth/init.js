@@ -10,6 +10,7 @@ var config = require('../config.js');
 
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var User = mongoose.model('User');
 
 module.exports = function (passport) {
@@ -129,6 +130,53 @@ module.exports = function (passport) {
 
                                 newUser.facebook.id = profile.id;
                                 newUser.facebook.token = token;
+
+                                newUser.save().then(
+                                    function () {
+                                        return done(null, newUser);
+                                    },
+                                    function (err) {
+                                        console.log('erro: ' + err);
+                                        return done(err);
+                                    }
+                                );
+                            }
+                        },
+                        function (err) {
+                            console.log('erro: ' + err);
+                            return done(err);
+                        }
+                    );
+                }
+            );
+        })
+    );
+
+    // =========================================================================
+    // GOOGLE ==================================================================
+    // =========================================================================
+    passport.use('google', new GoogleStrategy(
+        {
+            clientID: config.googleAuth.clientID,
+            clientSecret: config.googleAuth.clientSecret,
+            callbackURL: config.googleAuth.callbackURL
+        },
+        function (token, refreshToken, profile, done) {
+            process.nextTick(
+                function () {
+                    User.findOne({'google.id': profile.id}).then(
+                        function (user) {
+                            // User found
+                            if (user) {
+                                return done(null, user);
+                            } else { // Create user
+                                var newUser = new User();
+
+                                newUser.name = profile.name.givenName + ' ' + profile.name.familyName;
+                                newUser.email = profile.emails[0].value;
+
+                                newUser.google.id = profile.id;
+                                newUser.google.token = token;
 
                                 newUser.save().then(
                                     function () {

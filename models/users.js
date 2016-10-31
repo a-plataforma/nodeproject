@@ -20,6 +20,10 @@ var userSchema = new mongoose.Schema(
         facebook: {
             id: String,
             token: String
+        },
+        google: {
+            id: String,
+            token: String
         }
     }
 );

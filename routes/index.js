@@ -39,6 +39,9 @@ module.exports = function (passport) {
     router.get('/auth/facebook', ctrlUser.authFacebookGet);
     router.get('/auth/facebook/callback', ctrlUser.authFacebookCallbackGet);
 
+    router.get('/auth/google', ctrlUser.authGoogleGet);
+    router.get('/auth/google/callback', ctrlUser.authGoogleCallbackGet);
+
     router.get('/auth/logout', ctrlUser.logoutGet);
 
     return router;
