@@ -14,7 +14,9 @@ var express = require('express'),
     logger = require('morgan'),
     path = require('path'),
     flash = require('connect-flash'),
-    expressValidator = require('express-validator');
+    expressValidator = require('express-validator'),
+    MongoStore = require('connect-mongo')(session),
+    mongoose = require('mongoose');
 
 // Setup
 require('./db.js');
@@ -53,7 +55,12 @@ app.use(session(
         rolling: true, // Renew sessions when refresh
         cookie: {
             maxAge: config.sessionTimeout // Session timeout
-        }
+        },
+        store: new MongoStore(
+            {
+                mongooseConnection: mongoose.connection
+            }
+        )
     })
 );
 app.use(passport.initialize());
