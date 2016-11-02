@@ -9,6 +9,9 @@ if (process.env.NODE_ENV === 'production') {
 
 config.secretKey = 'a-plataforma-2016-uxhumano'; // TODO: onde colocar essa chave secreta?
 
+config.sessionTimeout = 2 * 60 * 60 * 1000; // Session has timespan of 2 hours
+config.rememberMeTimeout = 30 * 24 * 60 * 60 * 1000; // Rememeber me for 30 days
+
 config.port = normalizePort(process.env.PORT || '3000');
 
 config.facebookAuth = {

@@ -5,8 +5,8 @@
 
 // Dependencies
 var express = require('express'),
-    expressHandlebars = require('express-handlebars'),
-    expressSession = require('express-session'),
+    handlebars = require('express-handlebars'),
+    session = require('express-session'),
     //favicon = require('serve-favicon'), // TODO: quando tiver o favicon
     passport = require('passport'),
     bodyParser = require('body-parser'),
@@ -30,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
 // Configure express to use handlebars templates
-var hbs = expressHandlebars.create({defaultLayout: 'main'});
+var hbs = handlebars.create({defaultLayout: 'main'});
 app.engine('handlebars', hbs.engine);
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); // TODO: quando tiver o favicon
@@ -45,7 +45,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 
 // Configure auth
-app.use(expressSession({saveUninitialized: true, resave: true, secret: config.secretKey}));
+app.use(session(
+    {
+        saveUninitialized: false,
+        resave: false,
+        secret: config.secretKey,
+        rolling: true, // Renew sessions when refresh
+        cookie: {
+            maxAge: config.sessionTimeout // Session timeout
+        }
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
