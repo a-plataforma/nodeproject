@@ -61,3 +61,4 @@ process.on('SIGINT', function () {
 // Definition of database schemas
 // ------------------------------
 require('./models/users.js');
+require('./models/password-reset.js');

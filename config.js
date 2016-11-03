@@ -11,6 +11,17 @@ config.secretKey = 'a-plataforma-2016-uxhumano'; // TODO: onde colocar essa chav
 
 config.sessionTimeout = 2 * 60 * 60 * 1000; // Session has timespan of 2 hours
 config.rememberMeTimeout = 30 * 24 * 60 * 60 * 1000; // Rememeber me for 30 days
+config.resetPasswordTimeout = 10 * 1000;//2 * 60 * 60 * 1000; // Password reset link timeout
+
+config.forgotPasswordEmailText = 'Olá {0},<br/><p>Alguém requisitou uma nova senha para {1}.</p><p>Clique <a href="http://localhost:3000/auth/reset-password/{2}">aqui</a> para acessar a página para trocar a sua senha.</p>';
+config.email = {
+    service: 'Gmail',
+    address: 'noreply@a-plataforma.com',
+    auth: {
+        user: 'noreply@a-plataforma.com',
+        pass: 'noreply'
+    }
+};
 
 config.port = normalizePort(process.env.PORT || '3000');
 

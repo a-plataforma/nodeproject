@@ -32,9 +32,13 @@ module.exports = function (passport) {
     // profile
     router.get('/profile', isAuthenticated, ctrlUser.profileGet);
 
-    // forget password
-    router.get('/auth/reset-password', ctrlUser.resetPasswordGet);
-    router.post('/auth/reset-password', ctrlUser.resetPassword);
+    // forgot password
+    router.get('/auth/forgot-password', ctrlUser.forgotPasswordGet);
+    router.post('/auth/forgot-password', ctrlUser.forgotPasswordPost);
+
+    // reset password
+    router.get('/auth/reset-password/:code', ctrlUser.resetPasswordGet);
+    router.post('/auth/reset-password/:code', ctrlUser.resetPasswordPost, ctrlUser.resetPasswordRedirect);
 
     // authentication
     router.get('/auth/login', ctrlUser.loginGet);
