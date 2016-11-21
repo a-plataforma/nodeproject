@@ -1,3 +1,20 @@
-.body-content{
-	margin-top: 100px;
+.body-content {
+    margin-top: 100px;
+}
+
+.area-social-media {
+    position: relative;
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.area-social-media a {
+    position: relative;
+    display: inline-block;
+    color: #5a5a5a;
+    font-size: 25px;
+    line-height: 40px;
+    margin: 0 5px;
+    text-decoration: none;
 }

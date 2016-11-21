@@ -5,11 +5,11 @@
 
 // Dependencies
 var format = require('string-format');
-var debug = require('debug')('a-plataforma');
+var debug = require('debug')('fluxei');
 var http = require('http');
 
-var app = require('../app.js');
-var config = require('../config.js');
+var app = require('../app');
+var config = require('../config');
 var pjson = require('../package.json');
 
 // Get port from environment and store in Express.

@@ -56,56 +56,62 @@ usersController.forgotPasswordPost = function (req, res) {
                     req.flash('error', [{msg: 'Não foi possível enviar a mensagem.'}]);
                 }
                 else if (user) { // User was found in database
-                    // Creates the password reset token
-                    var newPasswordReset = new PasswordReset(); // TODO: não criar outro token quando um válido já existir
+                    if (user.facebook.token || user.google.token) {
+                        var nomeStrategy = (user.facebook.token ? 'Facebook' : 'Google+');
+                        req.flash('error', [{msg: 'Não é possível redefinir a senha desse usuário. Faça isso acessando o ' + nomeStrategy}]);
+                    }
+                    else {
+                        // Creates the password reset token
+                        var newPasswordReset = new PasswordReset(); // TODO: não criar outro token quando um válido já existir
 
-                    newPasswordReset.user = user;
-                    newPasswordReset.code = user.generateTempUrl();
-                    newPasswordReset.expiration_date = new Date() + config.resetPasswordTimeout;
+                        newPasswordReset.user = user;
+                        newPasswordReset.code = user.generateTempUrl();
+                        newPasswordReset.expiration_date = new Date() + config.resetPasswordTimeout;
 
-                    newPasswordReset.save().then(
-                        function () {
-                            // Send the e-mail
-                            var transporter = mailer.createTransport({
-                                service: config.email.service,
-                                auth: config.email.auth
-                            });
+                        newPasswordReset.save().then(
+                            function () {
+                                // Send the e-mail
+                                var transporter = mailer.createTransport({
+                                    service: config.email.service,
+                                    auth: config.email.auth
+                                });
 
-                            var mailOptions = {
-                                from: format('{0} {1}', pjson.description, config.email.address),
-                                to: email,
-                                subject: 'Redefinir a senha',
-                                html: format(config.forgotPasswordEmailText, user.name, pjson.description, newPasswordReset.code)
-                            };
+                                var mailOptions = {
+                                    from: format('{0} {1}', pjson.description, config.email.address),
+                                    to: email,
+                                    subject: 'Redefinir a senha',
+                                    html: format(config.forgotPasswordEmailText, user.name, pjson.description, newPasswordReset.code)
+                                };
 
-                            transporter.sendMail(mailOptions,
-                                function (err, info) {
-                                    if (err) {
-                                        console.log(err);
-                                        req.flash('error', [{msg: 'Não foi possível enviar a mensagem.'}]);
-                                    } else {
-                                        req.flash('message', [{msg: 'Uma mensagem foi enviada para seu e-mail. Verifique sua caixa de entrada.'}]);
+                                transporter.sendMail(mailOptions,
+                                    function (err, info) {
+                                        if (err) {
+                                            console.log(err);
+                                            req.flash('error', [{msg: 'Não foi possível enviar a mensagem.'}]);
+                                        } else {
+                                            req.flash('message', [{msg: 'Uma mensagem foi enviada para seu e-mail. Verifique sua caixa de entrada.'}]);
+                                        }
+
+                                        res.render('forgot-password', {
+                                            user: req.user,
+                                            message: req.flash('message'),
+                                            error: req.flash('error')
+                                        });
+
+                                        transporter.close();
                                     }
+                                );
 
-                                    res.render('forgot-password', {
-                                        user: req.user,
-                                        message: req.flash('message'),
-                                        error: req.flash('error')
-                                    });
+                                return done(null, newPasswordReset);
+                            },
+                            function (err) {
+                                console.log('erro: ' + err);
+                                return done(err);
+                            }
+                        );
 
-                                    transporter.close();
-                                }
-                            );
-
-                            return done(null, newPasswordReset);
-                        },
-                        function (err) {
-                            console.log('erro: ' + err);
-                            return done(err);
-                        }
-                    );
-
-                    return true;
+                        return true;
+                    }
                 }
                 else { // User not found in database
                     req.flash('error', [{msg: 'E-mail não encontrado.'}]);
@@ -180,8 +186,9 @@ usersController.resetPasswordPost = function (req, res, next) {
                                 req.flash('error', [{msg: 'Não foi possível redefinir a senha.'}]);
                                 next();
                             }
+
                             if (!user) {
-                               req.flash('error', [{msg: 'Usuário inválido.'}]);
+                                req.flash('error', [{msg: 'Usuário inválido.'}]);
                                 next();
                             }
                             else { // Updates user password

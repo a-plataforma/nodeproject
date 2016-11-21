@@ -19,10 +19,10 @@ var express = require('express'),
     mongoose = require('mongoose');
 
 // Setup
-require('./db.js');
-require('./auth/init.js');
-var config = require('./config.js'),
-    router = require('./routes/index.js')(passport);
+require('./db');
+require('./auth/init');
+var config = require('./config'),
+    router = require('./routes/index')(passport);
 
 // Express framework configurations
 var app = express();
