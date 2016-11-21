@@ -73,30 +73,29 @@ initPassport(passport);
 // Add server routes
 app.use(router);
 
-// Catch 404 and forward to error handler
-app.use(function (request, response, next) {
-    var error = new Error('Página Não Encontrada'); // TODO: o que fazer quando der erro 404?
-    error.status = 404;
-    next(error);
+// Handle 404
+app.use(function(req, res) {
+    res.status(400).render('404');
 });
 
 // Catch unauthorised errors
-app.use(function (error, request, response, next) {
+app.use(function (error, req, res, next) {
     if (error.name === 'UnauthorizedError') {
-        response.status(401).json({"message": error.name + ": " + error.message});
+        res.status(401).json({"message": error.name + ": " + error.message});
     }
 });
 
-// Development error handler: will print stacktrace
+// Handle 500
 if (app.get('env') === 'development') {
-    app.use(function (error, request, response, next) {
-        response.status(error.status || 500).render('error', {message: error.message, error: error});
+    app.use(function (error, req, res, next) {
+        res.status(error.status || 500).render('500', {message: error.message, error: error});
     });
 }
 
-// Production error handler: no stacktraces leaked to user
-app.use(function (error, request, response, next) {
-    res.status(error.status || 500).render('error', {message: error.message, error: {}});
+// Handle 500
+app.use(function (error, req, res, next) {
+    console.error(err);
+    res.status(error.status || 500).render('500', {message: error.message, error: {}});
 });
 
 module.exports = app;
