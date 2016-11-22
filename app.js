@@ -7,7 +7,7 @@
 var express = require('express'),
     handlebars = require('express-handlebars'),
     session = require('express-session'),
-    //favicon = require('serve-favicon'), // TODO: quando tiver o favicon
+    favicon = require('serve-favicon'),
     passport = require('passport'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -35,7 +35,7 @@ app.set('view engine', 'handlebars');
 var hbs = handlebars.create({defaultLayout: 'main'});
 app.engine('handlebars', hbs.engine);
 
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); // TODO: quando tiver o favicon
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
