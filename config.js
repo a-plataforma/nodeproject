@@ -2,7 +2,7 @@ var format = require('string-format');
 
 var config = {};
 
-config.domain = 'localhost';
+config.domain = (process.env.NODE_ENV == 'development' ? 'localhost' : process.env.NODE_ENV);
 config.port = normalizePort(process.env.PORT || '3000');
 
 config.databaseURI = 'mongodb://localhost/fluxei';
