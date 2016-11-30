@@ -5,7 +5,7 @@ var config = {};
 config.domain = (process.env.NODE_ENV == 'development' ? 'localhost' : process.env.NODE_ENV);
 config.port = normalizePort(process.env.PORT || '3000');
 
-config.databaseURI = 'mongodb://localhost/fluxei';
+config.databaseURI = 'mongodb://192.168.33.11/fluxei';
 if (process.env.NODE_ENV === 'production') {
     config.databaseURI = process.env.MONGOLAB_URI;
     config.domain = process.env.DOMAIN;

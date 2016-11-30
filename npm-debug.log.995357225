@@ -1,0 +1,27 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'start' ]
+2 info using npm@3.10.8
+3 info using node@v6.9.1
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle fluxei@0.0.2~prestart: fluxei@0.0.2
+6 silly lifecycle fluxei@0.0.2~prestart: no script for prestart, continuing
+7 info lifecycle fluxei@0.0.2~start: fluxei@0.0.2
+8 verbose lifecycle fluxei@0.0.2~start: unsafe-perm in lifecycle true
+9 verbose lifecycle fluxei@0.0.2~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/var/www/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+10 verbose lifecycle fluxei@0.0.2~start: CWD: /var/www
+11 silly lifecycle fluxei@0.0.2~start: Args: [ '-c', 'node ./bin/www' ]
+12 verbose stack Error: write EPIPE
+12 verbose stack     at exports._errnoException (util.js:1026:11)
+12 verbose stack     at WriteWrap.afterWrite (net.js:799:14)
+13 verbose cwd /var/www
+14 error Linux 3.13.0-92-generic
+15 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
+16 error node v6.9.1
+17 error npm  v3.10.8
+18 error code EPIPE
+19 error errno EPIPE
+20 error syscall write
+21 error write EPIPE
+22 error If you need help, you may report this error at:
+22 error     <https://github.com/npm/npm/issues>
+23 verbose exit [ 1, true ]
