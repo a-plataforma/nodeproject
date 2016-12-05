@@ -1,0 +1,39 @@
+{
+  "secretKey": "fluxei-2016-uxhumano",
+  "development": {
+    "port": "3000",
+    "domain": "localhost",
+    "databaseURI": "mongodb://localhost/fluxei",
+    "timeout": {
+      "session": "2,hr",
+      "rememberMe": "30,da",
+      "resetPassword": "10,sd"
+    },
+    "email": {
+      "service": "Gmail",
+      "address": "aplataformaproject@gmail.com",
+      "auth": {
+        "user": "aplataformaproject@gmail.com",
+        "pass": "Blockchain@APlataforma"
+      }
+    }
+  },
+  "production": {
+    "port": "80",
+    "domain": "www.fluxei.com",
+    "databaseURI": "mongodb://192.168.33.11/fluxei",
+    "timeout": {
+      "session": "2,hr",
+      "rememberMe": "30,da",
+      "resetPassword": "2,hr"
+    },
+    "email": {
+      "service": "Gmail",
+      "address": "aplataformaproject@gmail.com",
+      "auth": {
+        "user": "aplataformaproject@gmail.com",
+        "pass": "Blockchain@APlataforma"
+      }
+    }
+  }
+}
