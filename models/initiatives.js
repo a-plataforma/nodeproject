@@ -1,0 +1,4 @@
+// initiatives.js
+//
+// Initiatives schema.
+//

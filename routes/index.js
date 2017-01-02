@@ -32,6 +32,10 @@ module.exports = function (passport) {
     // profile
     router.get('/profile', isAuthenticated, ctrlUser.profileGet);
 
+    // initiative
+    router.get('/initiative', isAuthenticated, ctrlInitiative.initiativeGet);
+    router.post('/initiative/', isAuthenticated, ctrlInitiative.initiativePost);
+
     // forgot password
     router.get('/auth/forgot-password', ctrlUser.forgotPasswordGet);
     router.post('/auth/forgot-password', ctrlUser.forgotPasswordPost);
